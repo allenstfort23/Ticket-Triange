@@ -12,9 +12,16 @@ import java.util.Map;
 @RequestMapping("/tickets")
 public class TicketController {
 
+    private final TicketService ticketService;
+
+    public TicketController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
+
     @PostMapping
     public ResponseEntity<Map<String, String>> receive(@RequestBody TicketRequest request) {
-        System.out.println("Received: " + request);
+        ticketService.submit(request);
         return ResponseEntity.accepted().body(Map.of("status", "accepted"));
     }
 }
+
