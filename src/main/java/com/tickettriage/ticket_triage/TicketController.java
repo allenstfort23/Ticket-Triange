@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -19,7 +20,7 @@ public class TicketController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> receive(@RequestBody TicketRequest request) {
+    public ResponseEntity<Map<String, String>> receive(@Valid @RequestBody TicketRequest request) {
         ticketService.submit(request);
         return ResponseEntity.accepted().body(Map.of("status", "accepted"));
     }
